@@ -17,7 +17,7 @@ class _BasicPlayerPageState extends State<BasicPlayerPage> {
       ),
       body: Column(
         children: [
-          const SizedBox(height: 8),
+         // const SizedBox(height: 8),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Text(
@@ -36,7 +36,7 @@ class _BasicPlayerPageState extends State<BasicPlayerPage> {
               style: TextStyle(fontSize: 16),
             ),
           ),
-          const SizedBox(height: 8),
+          //const SizedBox(height: 8),
           FutureBuilder<String>(
             future: Utils.getFileUrl(Constants.fileTestVideoUrl),
             builder: (BuildContext context, AsyncSnapshot<String> snapshot) {

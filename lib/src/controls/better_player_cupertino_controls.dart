@@ -113,57 +113,61 @@ class _BetterPlayerCupertinoControlsState
             absorbing: _hideStuff,
             child: Stack(
               children: <Widget>[
-                Stack(
-                  children: <Widget>[
-                    Container(
-                      color: Colors.transparent,
-                      child: Stack(
-                        children: [
-                          Column(
+                Expanded(
+                  child:
+                    Stack(
+                      children: <Widget>[
+                        Container(
+                          color: Colors.transparent,
+                          child: Stack(
                             children: [
-                              _wasLoading
-                                  ? Expanded(
-                                      child:
-                                          Center(child: _buildLoadingWidget()))
-                                  : SizedBox.shrink(),
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              Expanded(
-                                child: Row(
-                                  children: [
-                                    _buildHitBackwardArea(),
-                                    _buildHitArea(),
-                                    _buildHitForwardArea()
-                                  ],
-                                ),
+                              Column(
+                                children: [
+                                  _wasLoading
+                                      ? Expanded(
+                                          child:
+                                              Center(child: _buildLoadingWidget()))
+                                      : SizedBox.shrink(),
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  Expanded(
+                                    child: Row(
+                                      children: [
+                                        _buildHitBackwardArea(),
+                                        _buildHitArea(),
+                                        _buildHitForwardArea()
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
-                        ],
-                      ),
+                        ),
+                        _buildNextVideoWidget(),
+                        Positioned(
+                            left: 16,
+                            right: 16,
+                            bottom: MediaQuery.of(context).orientation ==
+                                    Orientation.landscape
+                                ? 0
+                                : 10,
+                            child: Container(
+                              child: SizedBox(
+                                  height: MediaQuery.of(context).orientation ==
+                                          Orientation.landscape
+                                      ? 80
+                                      : 145,
+                                  child: _buildBottomBar(
+                                    backgroundColor,
+                                    iconColor,
+                                  )),
+                            )),
+                      ],
                     ),
-                    _buildNextVideoWidget(),
-                    Positioned(
-                        left: 16,
-                        right: 16,
-                        bottom: MediaQuery.of(context).orientation ==
-                                Orientation.landscape
-                            ? 0
-                            : 10,
-                        child: Container(
-                          child: SizedBox(
-                              height: MediaQuery.of(context).orientation ==
-                                      Orientation.landscape
-                                  ? 80
-                                  : 145,
-                              child: _buildBottomBar(
-                                backgroundColor,
-                                iconColor,
-                              )),
-                        )),
-                  ],
+
                 ),
                 _buildTopBar(
                     backgroundColor, iconColor, barHeight, buttonPadding),
@@ -375,9 +379,11 @@ class _BetterPlayerCupertinoControlsState
                         _buildMoreButton(
                           _controller,
                         ),
-                        GestureDetector(
-                            onTap: () => _onExpandCollapse(),
-                            child: _controlsConfiguration.fullScreenWidget)
+                        Expanded(
+                          child: GestureDetector(
+                              onTap: () => _onExpandCollapse,
+                              child: _controlsConfiguration.fullScreenWidget),
+                        )
                       ],
                     ),
                     BluredCard(
@@ -422,6 +428,8 @@ class _BetterPlayerCupertinoControlsState
       ),
     );
   }
+
+
 
   Widget _buildLiveWidget() {
     return Expanded(
@@ -970,7 +978,6 @@ class _BetterPlayerCupertinoControlsState
   void _onExpandCollapse() {
     setState(() {
       _hideStuff = true;
-
       _betterPlayerController.toggleFullScreen();
       _expandCollapseTimer = Timer(_controlsConfiguration.controlsHideTime, () {
         setState(() {

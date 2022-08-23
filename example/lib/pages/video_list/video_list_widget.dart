@@ -30,66 +30,63 @@ class _VideoListWidgetState extends State<VideoListWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: EdgeInsets.all(8),
-            child: Text(
-              videoListData.videoTitle,
-              style: TextStyle(fontSize: 50),
-            ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.all(8),
+          child: Text(
+            videoListData.videoTitle,
+            style: TextStyle(fontSize: 50),
           ),
-          AspectRatio(
-              child: BetterPlayerListVideoPlayer(
-                BetterPlayerDataSource(
-                    BetterPlayerDataSourceType.NETWORK, videoListData.videoUrl),
-                configuration: BetterPlayerConfiguration(
-                  autoPlay: false,
-                  aspectRatio: 1,
-                  fit: BoxFit.cover,
-                ),
-                //key: Key(videoListData.hashCode.toString()),
-                playFraction: 0.8,
-                betterPlayerListVideoPlayerController: controller,
+        ),
+        AspectRatio(
+            child: BetterPlayerListVideoPlayer(
+              BetterPlayerDataSource(
+                  BetterPlayerDataSourceType.NETWORK, videoListData.videoUrl),
+              configuration: BetterPlayerConfiguration(
+                autoPlay: false,
+                aspectRatio: 1,
+                fit: BoxFit.cover,
               ),
-              aspectRatio: 1),
-          Padding(
-            padding: EdgeInsets.all(8),
-            child: Text(
-                "Horror: In Steven Spielberg's Jaws, a shark terrorizes a beach "
-                "town. Plainspoken sheriff Roy Scheider, hippie shark "
-                "researcher Richard Dreyfuss, and a squirrely boat captain "
-                "set out to find the beast, but will they escape with their "
-                "lives? 70's special effects, legendary score, and trademark "
-                "humor set this classic apart."),
+              //key: Key(videoListData.hashCode.toString()),
+              playFraction: 0.8,
+              betterPlayerListVideoPlayerController: controller,
+            ),
+            aspectRatio: 1),
+        Padding(
+          padding: EdgeInsets.all(8),
+          child: Text(
+              "Horror: In Steven Spielberg's Jaws, a shark terrorizes a beach "
+              "town. Plainspoken sheriff Roy Scheider, hippie shark "
+              "researcher Richard Dreyfuss, and a squirrely boat captain "
+              "set out to find the beast, but will they escape with their "
+              "lives? 70's special effects, legendary score, and trademark "
+              "humor set this classic apart."),
+        ),
+        Row(children: [
+          RaisedButton(
+            child: Text("Play"),
+            onPressed: () {
+              controller.play();
+            },
           ),
-          Row(children: [
-            RaisedButton(
-              child: Text("Play"),
-              onPressed: () {
-                controller.play();
-              },
-            ),
-            const SizedBox(width: 8),
-            RaisedButton(
-              child: Text("Pause"),
-              onPressed: () {
-                controller.pause();
-              },
-            ),
-            const SizedBox(width: 8),
-            RaisedButton(
-              child: Text("Set max volume"),
-              onPressed: () {
-                controller.setVolume(100);
-              },
-            ),
-          ])
-        ],
-      ),
+          const SizedBox(width: 8),
+          RaisedButton(
+            child: Text("Pause"),
+            onPressed: () {
+              controller.pause();
+            },
+          ),
+          const SizedBox(width: 8),
+          RaisedButton(
+            child: Text("Set max volume"),
+            onPressed: () {
+              controller.setVolume(100);
+            },
+          ),
+        ])
+      ],
     );
   }
 }
